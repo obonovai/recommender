@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <br/>
+    <form method="GET">
+        <h2 align="center">Recommend a book</h3>
+        <div class="form-group">
+            <label for="title">Book title</label>
+            <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                placeholder="Enter a book title"
+            />
+        </div>
+        <button type="submit" class="btn btn-primary">Find</button>
+    </form>
+    <br/>
+
+    {% if found %}
+        <br/>
+        <h3>Found books:</h3>
+        <div style="margin-right:60px">
+            <table style="width:60%">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+                {% for _, book in found_books %}
+                    <tr>
+                        <td><a href="?title={{ book['Book-Title'] }}&isbn={{ book['ISBN'] }}">{{ book['ISBN'] }}</a></td>
+                        <td>{{ book['Book-Title'] }}</td>
+                        <td>{{ book['Book-Author'] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    {% if recommend %}
+        <br/>
+        <h3>Recommended books:</h3>
+        <div style="margin-right:70px">
+            <table style="width:70%">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+                {% for book in recommended %}
+                <tr>
+                    <td>{{ book['ISBN'] }}</td>
+                    <td>{{ book['Book-Title'] }}</td>
+                    <td>{{ book['Book-Author'] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}
